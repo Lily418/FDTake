@@ -8,6 +8,7 @@
 import Foundation
 import MobileCoreServices
 import UIKit
+import CTAssetsPickerController
 
 public class FDTakeController: NSObject /* , UIImagePickerControllerDelegate, UINavigationControllerDelegate*/ {
     
@@ -226,35 +227,64 @@ public class FDTakeController: NSObject /* , UIImagePickerControllerDelegate, UI
         for (title, source) in titleToSource {
             let action = UIAlertAction(title: textForButtonWithTitle(title), style: .Default) {
                 (UIAlertAction) -> Void in
-                self.imagePicker.sourceType = source
-                if source == .Camera && self.defaultsToFrontCamera && UIImagePickerController.isCameraDeviceAvailable(.Front) {
-                    self.imagePicker.cameraDevice = .Front
-                }
-                // set the media type: photo or video
-                self.imagePicker.allowsEditing = self.allowsEditing
-                var mediaTypes = [String]()
-                if self.allowsPhoto {
-                    mediaTypes.append(String(kUTTypeImage))
-                }
-                if self.allowsVideo {
-                    mediaTypes.append(String(kUTTypeMovie))
-                }
-                self.imagePicker.mediaTypes = mediaTypes
 
-                //TODO: Need to encapsulate popover code
-                var popOverPresentRect: CGRect = self.presentingRect ?? CGRectMake(0, 0, 1, 1)
-                if popOverPresentRect.size.height == 0 || popOverPresentRect.size.width == 0 {
-                    popOverPresentRect = CGRectMake(0, 0, 1, 1)
-                }
                 let topVC = self.topViewController(self.presentingViewController)
                 
-                // 
-                if UI_USER_INTERFACE_IDIOM() == .Phone || (source == .Camera && self.iPadUsesFullScreenCamera) {
-                    topVC.presentViewController(self.imagePicker, animated: true, completion: { _ in })
-                } else {
-                    // On iPad use pop-overs.
-                    self.popover.presentPopoverFromRect(popOverPresentRect, inView: topVC.view!, permittedArrowDirections: .Any, animated: true)
+                if source == .PhotoLibrary {
+                    PHPhotoLibrary.requestAuthorization { (status : PHAuthorizationStatus) in
+                        dispatch_async(dispatch_get_main_queue(), {
+                            
+                            //let fetchOptionsForCollection : PHFetchOptions = PHFetchOptions()
+                            //fetchOptionsForCollection.includeHiddenAssets = false
+                            //fetchOptionsForCollection.includeAllBurstAssets = false
+                            
+                            let fetchOptionsForAssets : PHFetchOptions = PHFetchOptions()
+                            fetchOptionsForAssets.includeHiddenAssets = false
+                            fetchOptionsForAssets.predicate = NSPredicate(format: "mediaType == %d", PHAssetMediaType.Image.rawValue)
+                            
+                            
+                            
+                            let picker : CTAssetsPickerController = CTAssetsPickerController()
+                            //picker.assetCollectionFetchOptions = fetchOptionsForCollection
+                            picker.assetsFetchOptions = fetchOptionsForAssets
+                            picker.showsEmptyAlbums = false
+                            picker.delegate = self
+                            topVC.presentViewController(picker, animated: true, completion: nil)
+                        })
+                    }
+                } else if source == .Camera {
+                    self.imagePicker.sourceType = source
+                    if source == .Camera && self.defaultsToFrontCamera && UIImagePickerController.isCameraDeviceAvailable(.Front) {
+                        self.imagePicker.cameraDevice = .Front
+                    }
+                    
+                    // set the media type: photo or video
+                    self.imagePicker.allowsEditing = self.allowsEditing
+                    var mediaTypes = [String]()
+                    if self.allowsPhoto {
+                        mediaTypes.append(String(kUTTypeImage))
+                    }
+                    if self.allowsVideo {
+                        mediaTypes.append(String(kUTTypeMovie))
+                    }
+                    self.imagePicker.mediaTypes = mediaTypes
+                    
+                    //TODO: Need to encapsulate popover code
+                    var popOverPresentRect: CGRect = self.presentingRect ?? CGRectMake(0, 0, 1, 1)
+                    if popOverPresentRect.size.height == 0 || popOverPresentRect.size.width == 0 {
+                        popOverPresentRect = CGRectMake(0, 0, 1, 1)
+                    }
+                    
+                    //
+                    if UI_USER_INTERFACE_IDIOM() == .Phone || (source == .Camera && self.iPadUsesFullScreenCamera) {
+                        topVC.presentViewController(self.imagePicker, animated: true, completion: { _ in })
+                    } else {
+                        // On iPad use pop-overs.
+                        self.popover.presentPopoverFromRect(popOverPresentRect, inView: topVC.view!, permittedArrowDirections: .Any, animated: true)
+                    }
                 }
+                
+
             }
             alertController!.addAction(action)
         }
@@ -288,7 +318,7 @@ public class FDTakeController: NSObject /* , UIImagePickerControllerDelegate, UI
     }
 }
 
-extension FDTakeController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension FDTakeController : UIImagePickerControllerDelegate, UINavigationControllerDelegate, CTAssetsPickerControllerDelegate {
     public func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         UIApplication.sharedApplication().statusBarHidden = true
         let mediaType: String = info[UIImagePickerControllerMediaType] as! String
@@ -318,5 +348,27 @@ extension FDTakeController : UIImagePickerControllerDelegate, UINavigationContro
         UIApplication.sharedApplication().statusBarHidden = true
         picker.dismissViewControllerAnimated(true, completion: { _ in })
         self.didDeny?()
+    }
+    
+    public func assetsPickerController(picker: CTAssetsPickerController, didFinishPickingAssets assets: [PHAsset]) {
+        let imageRequestOptions : PHImageRequestOptions = PHImageRequestOptions()
+        imageRequestOptions.synchronous = false
+        imageRequestOptions.networkAccessAllowed = true
+        imageRequestOptions.deliveryMode = .FastFormat
+        
+        if (assets.first != nil) {
+            
+            PHImageManager.defaultManager().requestImageDataForAsset(assets.first!, options: imageRequestOptions, resultHandler: { (data: NSData?, dataUTI : String?, orientation: UIImageOrientation, info: [NSObject : AnyObject]?) in
+                picker.dismissViewControllerAnimated(true, completion: nil)
+                if data != nil {
+                    let image = UIImage(data: data!)
+                    self.didGetPhoto?(photo: image!, info: info!)
+                } else {
+                    self.didCancel?()
+                }
+            })
+        } else {
+            self.didCancel?()
+        }
     }
 }

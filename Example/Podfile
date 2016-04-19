@@ -2,7 +2,8 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
 target 'FDTake_Example', :exclusive => true do
-  pod "FDTake", :path => "../"
+  pod "FDTake", :path => "../" 
+  pod "CTAssetsPickerController", "~> 3.3.2-alpha"
 end
 
 target 'FDTake_Tests', :exclusive => true do

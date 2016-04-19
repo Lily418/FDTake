@@ -1,4 +1,6 @@
 PODS:
+  - CTAssetsPickerController (3.3.2-alpha):
+    - PureLayout (~> 3.0.0)
   - FBSnapshotTestCase (2.0.7):
     - FBSnapshotTestCase/SwiftSupport (= 2.0.7)
   - FBSnapshotTestCase/Core (2.0.7)
@@ -10,9 +12,11 @@ PODS:
     - FBSnapshotTestCase (~> 2.0.7)
     - Nimble
     - Quick
+  - PureLayout (3.0.1)
   - Quick (0.8.0)
 
 DEPENDENCIES:
+  - CTAssetsPickerController (~> 3.3.2-alpha)
   - FBSnapshotTestCase
   - FDTake (from `../`)
   - Nimble (= 3.0.0)
@@ -24,10 +28,12 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
+  CTAssetsPickerController: ef06977de8e0b6d6ff11a324d357a12335a61243
   FBSnapshotTestCase: 7e85180d0d141a0cf472352edda7e80d7eaeb547
   FDTake: 122aaf465673b05648cd1b40200a19c85b1aa9e0
   Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
   Nimble-Snapshots: ab41dd737dcd33a0b0cb005a30465fef70b7207a
+  PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
   Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
 
 COCOAPODS: 0.39.0

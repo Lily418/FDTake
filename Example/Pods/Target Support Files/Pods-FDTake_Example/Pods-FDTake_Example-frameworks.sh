@@ -84,8 +84,12 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-FDTake_Example/CTAssetsPickerController.framework"
   install_framework "Pods-FDTake_Example/FDTake.framework"
+  install_framework "Pods-FDTake_Example/PureLayout.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-FDTake_Example/CTAssetsPickerController.framework"
   install_framework "Pods-FDTake_Example/FDTake.framework"
+  install_framework "Pods-FDTake_Example/PureLayout.framework"
 fi
