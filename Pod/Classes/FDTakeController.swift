@@ -371,4 +371,14 @@ extension FDTakeController : UIImagePickerControllerDelegate, UINavigationContro
             self.didCancel?()
         }
     }
+    
+    public func assetsPickerController(picker: CTAssetsPickerController, shouldSelectAsset asset: PHAsset) -> Bool {
+        
+        //Remove currently selected assets before selecting a new one
+        picker.selectedAssets.forEach { (selectedAsset : AnyObject) in
+            picker.deselectAsset(selectedAsset as! PHAsset)
+        }
+        
+        return true
+    }
 }
