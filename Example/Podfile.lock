@@ -4,7 +4,7 @@ PODS:
   - FBSnapshotTestCase/Core (2.0.7)
   - FBSnapshotTestCase/SwiftSupport (2.0.7):
     - FBSnapshotTestCase/Core
-  - FDTake (0.1.0)
+  - FDTake (0.3.2)
   - Nimble (3.0.0)
   - Nimble-Snapshots (3.0.0):
     - FBSnapshotTestCase (~> 2.0.7)
@@ -21,11 +21,11 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   FDTake:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
   FBSnapshotTestCase: 7e85180d0d141a0cf472352edda7e80d7eaeb547
-  FDTake: 1a93d39ead038566178e0fb448a12980391c2d9c
+  FDTake: 122aaf465673b05648cd1b40200a19c85b1aa9e0
   Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
   Nimble-Snapshots: ab41dd737dcd33a0b0cb005a30465fef70b7207a
   Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
