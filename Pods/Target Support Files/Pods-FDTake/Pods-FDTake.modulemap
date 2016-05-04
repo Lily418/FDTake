@@ -1,0 +1,6 @@
+framework module Pods_FDTake {
+  umbrella header "Pods-FDTake-umbrella.h"
+
+  export *
+  module * { export * }
+}
