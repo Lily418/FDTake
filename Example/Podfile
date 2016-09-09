@@ -1,14 +1,19 @@
-source 'https://github.com/CocoaPods/Specs.git'
-use_frameworks!
+# Uncomment this line to define a global platform for your project
+# platform :ios, '9.0'
 
-target 'FDTake_Example', :exclusive => true do
+target 'FDTake_Example' do
+  # Comment this line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for FDTake_Example
   pod "FDTake", :path => "../" 
   pod "CTAssetsPickerController", "~> 3.3.2-alpha"
 end
 
-target 'FDTake_Tests', :exclusive => true do
+target 'FDTake_Tests' do
+  use_frameworks!
+  
   pod "FDTake", :path => "../"
-
   pod 'Quick', '~> 0.8.0'
   pod 'Nimble', '3.0.0'
   pod 'FBSnapshotTestCase'

@@ -1,18 +1,19 @@
 PODS:
   - CTAssetsPickerController (3.3.2-alpha):
     - PureLayout (~> 3.0.0)
-  - FBSnapshotTestCase (2.0.7):
-    - FBSnapshotTestCase/SwiftSupport (= 2.0.7)
-  - FBSnapshotTestCase/Core (2.0.7)
-  - FBSnapshotTestCase/SwiftSupport (2.0.7):
+  - FBSnapshotTestCase (2.1.2):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.2)
+  - FBSnapshotTestCase/Core (2.1.2)
+  - FBSnapshotTestCase/SwiftSupport (2.1.2):
     - FBSnapshotTestCase/Core
-  - FDTake (0.3.2)
+  - FDTake (0.4.3):
+    - CTAssetsPickerController (~> 3.3.2-alpha)
   - Nimble (3.0.0)
-  - Nimble-Snapshots (3.0.0):
-    - FBSnapshotTestCase (~> 2.0.7)
+  - Nimble-Snapshots (4.1.0):
+    - FBSnapshotTestCase (~> 2.0)
     - Nimble
     - Quick
-  - PureLayout (3.0.1)
+  - PureLayout (3.0.2)
   - Quick (0.8.0)
 
 DEPENDENCIES:
@@ -29,11 +30,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   CTAssetsPickerController: ef06977de8e0b6d6ff11a324d357a12335a61243
-  FBSnapshotTestCase: 7e85180d0d141a0cf472352edda7e80d7eaeb547
-  FDTake: 122aaf465673b05648cd1b40200a19c85b1aa9e0
+  FBSnapshotTestCase: 918c55861356ee83aee7843d759f55a18ff6982b
+  FDTake: ad395d8aba4747eb1a0a79cfaea96eb7273aae7b
   Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
-  Nimble-Snapshots: ab41dd737dcd33a0b0cb005a30465fef70b7207a
-  PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
+  Nimble-Snapshots: 2da4d2ec829b458d6886c06812c52493fce284c9
+  PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: d723364e2d19c510e344f8cbfc3f55c7149faff2
+
+COCOAPODS: 1.0.1
