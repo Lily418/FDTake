@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/fulldecent'
   s.platform     = :ios, '8.0'
   s.requires_arc = true
-  s.dependency "CTAssetsPickerController", "~> 3.3.2-alpha"
+  s.dependency "LilyFork-CTAssetsPickerController"
   s.source_files = 'Pod/Classes/**/*'
   s.resource_bundles = {
     'FDTake' => ['Pod/*.lproj']

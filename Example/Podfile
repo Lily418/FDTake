@@ -7,7 +7,7 @@ target 'FDTake_Example' do
 
   # Pods for FDTake_Example
   pod "FDTake", :path => "../" 
-  pod "CTAssetsPickerController", "~> 3.3.2-alpha"
+  pod "CTAssetsPickerController", :git => 'https://github.com/asivura/CTAssetsPickerController.git'
 end
 
 target 'FDTake_Tests' do
